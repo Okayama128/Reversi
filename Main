@@ -1,0 +1,26 @@
+package reversi;
+
+public class Main {
+	public static void main(String[] args) {
+		// 時間があればそれぞれの名前を聞けばいいさ
+		String playerBlack = "Player_1(黒)";
+		String playerWhite = "Player_2(白)";		
+//		int limit = 0;
+		int putNumber = 0;
+		
+//		while(limit < 50) {
+		Table board = new Table();
+		board.setLength(); // 普通の大きさが嫌な人のためにある．
+//		board.setLengthArrange();
+		board.test_setup();
+		board.test_showTable();
+		System.out.println(playerBlack + "の手番");
+		putNumber = StandardInput.readInt();
+		board.putStone(putNumber, Cons.BLACK);
+		board.clearPossible();
+		board.test_showTable();
+				
+//		limit++;
+//		}
+	}
+}
