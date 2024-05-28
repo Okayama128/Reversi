@@ -191,8 +191,8 @@ public class Table{
 		}
 	}
 	public void clearPossible() {
-		for(int i=0; i < length + 2; i++) {
-			for (int j=0; j < length + 2; j++) {
+		for(int i=1; i < length + 1; i++) {
+			for (int j=1; j < length + 1; j++) {
 				if(tables[i][j].getStatus() == Cons.POSSIBLE) {
 					tables[i][j].setStatus(Cons.ZERO);
 				}
@@ -212,6 +212,8 @@ public class Table{
 			System.out.println("Error");
 			break;
 		}
+		System.out.println("playerColor: " + playerColor);
+		System.out.println("counterColor: " + counterColor);
 		// ForDebug
 		//		System.out.println("playerColor:" + playerColor);
 		//		System.out.println("counterColor:" + counterColor);
@@ -219,6 +221,7 @@ public class Table{
 			for(int j=1; j < length + 1; j++) {
 				// 自分の石を探索（＊＊ここでまとめてもいいかもね．自分の石がどこにあるのかを．）
 				if(tables[i][j].getStatus() == playerColor) {
+					System.out.println("playerColor: " + i +", "+ j);
 					// 各方向を探すメソッドを後で分離
 					// RightSearch
 					if(tables[i][j+1].getStatus() == counterColor) {
