@@ -1,4 +1,4 @@
-package reversi;
+package reversi2;
 
 public class Stone {
 	private int status;
