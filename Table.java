@@ -10,15 +10,15 @@ public class Table{
 		possibleList = new ArrayList<>();
 	}
 
-	public Table(int length) {
-		this.length = length;
-		tables = new Stone[length][length];
-		for (int i=0; i < length; i++) {
-			for (int j=0; j < length; j++) {
-				tables[i][j] = new Stone();
-			}
-		}
-	}
+	// public Table(int length) {
+	// 	this.length = length;
+	// 	tables = new Stone[length][length];
+	// 	for (int i=0; i < length; i++) {
+	// 		for (int j=0; j < length; j++) {
+	// 			tables[i][j] = new Stone();
+	// 		}
+	// 	}
+	// }
 
 	public void setLength() {
 		length = 8;
@@ -142,20 +142,8 @@ public class Table{
 				}
 			}
 		}
-		// コード違う
-//		for(int i=0; i < length;i++) {
-//			if(i==index) {
-//				//				arrayNumber = i;
-//				row = possibleList.get(i).getPosition() / 100;
-//				clmn = possibleList.get(i).getPosition() % 100;
-//				// ここでリバースストーン発動（準備中）
-//				tables[row][clmn].setStatus(playerColor);
-//			}
-//		}
-//		int row = possibleList.get(index).getPosition() / 100;
-//		int clmn = possibleList.get(index).getPosition() % 100;
-//		tables[row][clmn].setStatus(playerColor);
 	}
+
 	public void test_showTable() {
 		int counter = 0;
 		System.out.println();
@@ -198,6 +186,7 @@ public class Table{
 				}
 			}
 		}
+		possibleList.clear();
 	}
 	public boolean test_setPossible(int color) {
 		int playerColor = color, counterColor = 0;
@@ -240,7 +229,7 @@ public class Table{
 								// 相手の色があってさらに奥を探索
 								continue;
 							}
-							else if (tables[i][k+1].getStatus() == Cons.ZERO) {
+							else if ((tables[i][k+1].getStatus() == Cons.ZERO)||(tables[i][k+1].getStatus() == Cons.POSSIBLE)) {
 								// 置ける
 								if(possibleList == null) {
 									// まだリストがない
@@ -287,7 +276,7 @@ public class Table{
 								// 相手の色があってさらに奥を探索
 								continue;
 							}
-							else if (tables[i][k-1].getStatus() == Cons.ZERO) {
+							else if ((tables[i][k-1].getStatus() == Cons.ZERO)||(tables[i][k+1].getStatus() == Cons.POSSIBLE)) {
 								// 置ける
 								if(possibleList == null) {
 									// まだリストがない
@@ -333,7 +322,7 @@ public class Table{
 								// 相手の色があってさらに奥を探索
 								continue;
 							}
-							else if (tables[k+1][j].getStatus() == Cons.ZERO) {
+							else if ((tables[k+1][j].getStatus() == Cons.ZERO)||(tables[i][k+1].getStatus() == Cons.POSSIBLE)) {
 								// 置ける
 								if(possibleList == null) {
 									// まだリストがない
@@ -380,7 +369,7 @@ public class Table{
 								// 相手の色があってさらに奥を探索
 								continue;
 							}
-							else if (tables[k-1][j].getStatus() == Cons.ZERO) {
+							else if ((tables[k-1][j].getStatus() == Cons.ZERO)||(tables[i][k+1].getStatus() == Cons.POSSIBLE)) {
 								// 置ける
 								if(possibleList == null) {
 									// まだリストがない
@@ -427,7 +416,7 @@ public class Table{
 								// 相手の色があってさらに奥を探索
 								continue;
 							}
-							else if (tables[i+k][j+k].getStatus() == Cons.ZERO) {
+							else if ((tables[i+k][j+k].getStatus() == Cons.ZERO)||(tables[i][k+1].getStatus() == Cons.POSSIBLE)) {
 								// 置ける
 								if(possibleList == null) {
 									// まだリストがない
@@ -474,7 +463,7 @@ public class Table{
 								// 相手の色があってさらに奥を探索
 								continue;
 							}
-							else if (tables[i-k][j+k].getStatus() == Cons.ZERO) {
+							else if ((tables[i-k][j+k].getStatus() == Cons.ZERO)||(tables[i][k+1].getStatus() == Cons.POSSIBLE)) {
 								// 置ける
 								if(possibleList == null) {
 									// まだリストがない
@@ -522,7 +511,7 @@ public class Table{
 								// 相手の色があってさらに奥を探索
 								continue;
 							}
-							else if (tables[i-k][j-k].getStatus() == Cons.ZERO) {
+							else if ((tables[i-k][j-k].getStatus() == Cons.ZERO)||(tables[i][k+1].getStatus() == Cons.POSSIBLE)) {
 								// 置ける
 								if(possibleList == null) {
 									// まだリストがない
@@ -570,7 +559,7 @@ public class Table{
 								// 相手の色があってさらに奥を探索
 								continue;
 							}
-							else if (tables[i+k][j-k].getStatus() == Cons.ZERO) {
+							else if ((tables[i+k][j-k].getStatus() == Cons.ZERO)||(tables[i][k+1].getStatus() == Cons.POSSIBLE)) {
 								// 置ける
 								if(possibleList == null) {
 									// まだリストがない
@@ -603,7 +592,8 @@ public class Table{
 				}
 			}
 		}
-		if (possibleList != null) {
+
+		if (possibleList.size() != 0) {
 			for (PositionDirection possible:possibleList) {
 				int row = possible.getPosition() / 100;
 				int clmn = possible.getPosition() % 100;
@@ -614,6 +604,7 @@ public class Table{
 			return true;
 		}
 		else {
+			System.out.println("Naiyoooo");
 			return false;
 		}
 	}
@@ -642,7 +633,7 @@ public class Table{
 					System.out.print("×");
 					break;
 				case Cons.POSSIBLE:
-					System.out.print("++counter");
+					System.out.print(++counter);
 					break;
 				case Cons.ZERO:
 					System.out.print(" ");
